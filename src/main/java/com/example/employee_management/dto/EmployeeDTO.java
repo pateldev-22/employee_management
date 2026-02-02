@@ -1,9 +1,6 @@
 package com.example.employee_management.dto;
-
-import jakarta.validation.constraints.Email;
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Size;
+import com.example.employee_management.validation.ValidationGroups;
+import jakarta.validation.constraints.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -12,19 +9,22 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 public class EmployeeDTO {
+
+    @Null(groups = ValidationGroups.Create.class, message = "ID must be null for new employees")
+    @NotNull(groups = ValidationGroups.Update.class, message = "ID is required for updates")
     private Long id;
 
-    @NotBlank(message = "Name is required")
-    @Size(min = 1, max = 100, message = "Title must be between 1 and 100 characters")
+    @NotBlank(message = "Name is required", groups = {ValidationGroups.Create.class, ValidationGroups.Update.class})
+    @Size(min = 1, max = 100, message = "Name must be between 1 and 100 characters")
     private String fullName;
 
-    @NotNull(message = "Email is Required")
-    @Email(message = "Invalid Email Format")
+    @NotNull(message = "Email is required", groups = {ValidationGroups.Create.class, ValidationGroups.Update.class})
+    @Email(message = "Invalid email format")
     private String email;
 
-
+    @Min(value = 0, message = "Salary must be positive")
     private Double salary;
 
-    private String profile_picture_path;
-
+    private String profilePicturePath;
 }
+

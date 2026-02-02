@@ -7,6 +7,7 @@ import com.example.employee_management.mapper.EmployeeMapper;
 import com.example.employee_management.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -40,6 +41,7 @@ public class EmployeeService {
     }
 
     public EmployeeDTO createEmployee(EmployeeDTO dto){
+
         Employee employee = employeeMapper.toEntity(dto);
         Employee created = employeeRepository.save(employee);
         return employeeMapper.toDTO(created);

@@ -16,7 +16,7 @@ public class EmployeeMapper {
         employee.setEmail(dto.getEmail());
         employee.setSalary(dto.getSalary());
         employee.setFullName(dto.getFullName());
-        employee.setProfilePicturePath(dto.getProfile_picture_path());
+        employee.setProfilePicturePath(dto.getProfilePicturePath());
 
         return employee;
     }
@@ -29,7 +29,7 @@ public class EmployeeMapper {
         employeeDTO.setEmail(employee.getEmail());
         employeeDTO.setFullName(employee.getFullName());
         employeeDTO.setSalary(employee.getSalary());
-        employeeDTO.setProfile_picture_path(employee.getProfilePicturePath());
+        employeeDTO.setProfilePicturePath(employee.getProfilePicturePath());
 
         return employeeDTO;
     }
@@ -39,7 +39,7 @@ public class EmployeeMapper {
 
         employee.setFullName(dto.getFullName());
         employee.setEmail(dto.getEmail());
-        employee.setProfilePicturePath(dto.getProfile_picture_path());
+        employee.setProfilePicturePath(dto.getProfilePicturePath());
         employee.setSalary(dto.getSalary());
     }
 }
