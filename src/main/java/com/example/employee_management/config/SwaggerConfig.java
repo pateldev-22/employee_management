@@ -18,19 +18,10 @@ public class SwaggerConfig {
         devServer.setUrl("http://localhost:8080");
         devServer.setDescription("Development Server");
 
-        Contact contact = new Contact();
-        contact.setName("Employee Management");
-
-        License license = new License()
-                .name("MIT License")
-                .url("https://opensource.org/licenses/MIT");
-
         Info info = new Info()
                 .title("Employee Management System API")
                 .version("1.0.0")
-                .description("RESTful API for Employee Management System using Spring Boot 3")
-                .contact(contact)
-                .license(license);
+                .description("RESTful API for Employee Management System using Spring Boot");
 
         return new OpenAPI()
                 .info(info)

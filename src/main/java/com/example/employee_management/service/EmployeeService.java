@@ -7,10 +7,11 @@ import com.example.employee_management.mapper.EmployeeMapper;
 import com.example.employee_management.repository.EmployeeRepository;
 import jakarta.transaction.Transactional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -36,7 +37,7 @@ public class EmployeeService {
 
     public EmployeeDTO getEmployee(Long id){
         Employee employee = employeeRepository.findById(id)
-                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + id));
+                .orElseThrow(() -> new IllegalArgumentException("Employee not found with ID: " + id));
         return employeeMapper.toDTO(employee);
     }
 
@@ -60,6 +61,24 @@ public class EmployeeService {
             throw new ResourceNotFoundException("Employee not found with id : " + id);
         }
         employeeRepository.deleteById(id);
+    }
+
+    public EmployeeDTO patchEmployee(Long id, Map<String, Object> updates) {
+        Employee employee = employeeRepository.findById(id)
+                .orElseThrow(() -> new ResourceNotFoundException("Employee not found with ID: " + id));
+
+        updates.forEach((field, value) -> {
+            switch (field) {
+                case "fullName" -> employee.setFullName((String) value);
+                case "email" -> employee.setEmail((String) value);
+                case "salary" -> employee.setSalary(((Number) value).doubleValue());
+                case "profilePicturePath" -> employee.setProfilePicturePath((String) value);
+                default -> throw new IllegalArgumentException("Invalid field: " + field);
+            }
+        });
+
+        Employee updated = employeeRepository.save(employee);
+        return employeeMapper.toDTO(updated);
     }
 
 }

@@ -1,21 +1,32 @@
 //package com.example.employee_management.security;
-//import com.example.employee_management.security.JwtAuthenticationFilter;
+//
 //import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.boot.web.servlet.FilterRegistrationBean;
 //import org.springframework.context.annotation.Bean;
 //import org.springframework.context.annotation.Configuration;
+//import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+//import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+//import org.springframework.security.web.SecurityFilterChain;
+//import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 //
 //@Configuration
+//@EnableWebSecurity
 //public class SecurityConfig {
-//
 //    @Autowired
 //    private JwtAuthenticationFilter jwtAuthenticationFilter;
 //
 //    @Bean
-//    public FilterRegistrationBean<JwtAuthenticationFilter> jwtFilter() {
-//        FilterRegistrationBean<JwtAuthenticationFilter> registrationBean = new FilterRegistrationBean<>();
-//        registrationBean.setFilter(jwtAuthenticationFilter);
-//        registrationBean.addUrlPatterns("/api/*");
-//        return registrationBean;
+//    public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
+//        http
+//                .csrf(csrf -> csrf.disable())
+//                .authorizeHttpRequests(auth -> auth
+//                        .requestMatchers("/api/auth/**").permitAll()
+//                        .requestMatchers("/swagger-ui/**", "/v3/api-docs/**").permitAll()
+//                        .anyRequest().authenticated()
+//                )
+//                .addFilterBefore(jwtAuthenticationFilter,
+//                        UsernamePasswordAuthenticationFilter.class);
+//
+//        return http.build();
 //    }
 //}
+//

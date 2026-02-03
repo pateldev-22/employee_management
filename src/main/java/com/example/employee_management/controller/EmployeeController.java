@@ -50,16 +50,10 @@ public class EmployeeController {
         return ResponseEntity.noContent().build();
     }
 
-//    @PatchMapping("/{id}")
-//    public ResponseEntity<EmployeeDTO> patchEmployee(@RequestBody Map<String, Object> updates) {
-//        if (updates.size() != 1) {
-//            throw new IllegalArgumentException("Only one field can be updated at a time");
-//        }
-//        Map.Entry<String, Object> entry = updates.entrySet().iterator().next();
-//        String field = entry.getKey();
-//        Object value = entry.getValue();
-//        return ResponseEntity.ok(employeeService.patchEmployee(id, field, value));
-//    }
+    @PatchMapping("/{id}")
+    public ResponseEntity<EmployeeDTO> patchEmployee(@PathVariable Long id,@RequestBody Map<String, Object> updates) {
+        return ResponseEntity.ok(employeeService.patchEmployee(id,updates));
+    }
 
     @GetMapping("/cookie")
     public ResponseEntity<Map<String, String>> setCookie(HttpServletResponse response) {
@@ -117,7 +111,7 @@ public class EmployeeController {
 
     // Example 4: Accept Header (Content Negotiation) Versioning
 
-    @GetMapping(value = "/test-accept-version", produces = "application/devpatel.v4+json")
+    @GetMapping(value = "/test-accept-version", produces = "application/devpatel.v4+jsony")
     public ResponseEntity<Map<String, String>> testAcceptVersioning() {
 
         Map<String, String> response = new HashMap<>();

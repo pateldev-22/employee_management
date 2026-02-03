@@ -26,9 +26,7 @@ public class ImageService {
             throw new IllegalArgumentException("File is empty");
         }
         try {
-            String originalFilename = file.getOriginalFilename();
-            String extension = originalFilename.substring(originalFilename.lastIndexOf("."));
-            String newFilename = file.getOriginalFilename().toString() + extension;
+            String newFilename = file.getOriginalFilename().toString();
             Path targetPath = uploadPath.resolve(newFilename);
             Files.copy(file.getInputStream(), targetPath, StandardCopyOption.REPLACE_EXISTING);
             return newFilename;
